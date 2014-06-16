@@ -72,7 +72,7 @@ var app = {
 				
 		//zoekfunctie : key up start findbyname fucntion
 		$('.search-key').on('keyup', $.proxy(this.findByName, this));
-		this.el.on('click', '.add-location-btn', this.addLocation);
+		
 	}	
 
 };
