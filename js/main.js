@@ -25,19 +25,20 @@ var app = {
 		$(window).on('hashchange', $.proxy(this.route, this));
 	},	
 	
-route: function() {
-    var hash = window.location.hash;
-    if (!hash) {
-        $('body').html(new HomeView(this.store).render().el);
-        return;
-    }
-    var match = hash.match(app.detailsURL);
-    if (match) {
-        this.store.findById(Number(match[1]), function(employee) {
-            $('body').html(new EmployeeView(employee).render().el);
-        });
-    }
-},		
+	// NAVIGATIE ROUTEN
+	route: function() {
+		var hash = window.location.hash;
+		if (!hash) {
+			$('body').html(new HomeView(this.store).render().el);
+			return;
+		}
+		var match = hash.match(app.detailsURL);
+		if (match) {
+			this.store.findById(Number(match[1]), function(employee) {
+				$('body').html(new EmployeeView(employee).render().el);
+			});
+		}
+	},		
 	
 	// NATIVE ALERT INITIALISEREN
 	showAlert: function (message, title) {
@@ -52,6 +53,7 @@ route: function() {
 		var self = this;
 		this.detailsURL = /^#employees\/(\d{1,})/;
 		this.registerEvents();
+		
 		
 		this.store = new WebSqlStore(function() {
 			
@@ -70,6 +72,7 @@ route: function() {
 				
 		//zoekfunctie : key up start findbyname fucntion
 		$('.search-key').on('keyup', $.proxy(this.findByName, this));
+		this.el.on('click', '.add-location-btn', this.addLocation);
 	}	
 
 };
